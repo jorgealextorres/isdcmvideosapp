@@ -4,9 +4,17 @@
         <servlet-name>servletUsuarios</servlet-name>
         <servlet-class>usuarios.servletUsuarios</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>servletRegistroVid</servlet-name>
+        <servlet-class>videos.servletRegistroVid</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>servletUsuarios</servlet-name>
         <url-pattern>/servletUsuarios/*</url-pattern>
+    </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>servletRegistroVid</servlet-name>
+        <url-pattern>/servletRegistroVid/*</url-pattern>
     </servlet-mapping>
     
     <welcome-file-list>

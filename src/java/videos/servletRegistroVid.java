@@ -1,15 +1,18 @@
-package usuarios;
+package videos;
 
 import common.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
+import java.sql.Time;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class servletUsuarios extends HttpServlet {
+public class servletRegistroVid extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -22,6 +25,7 @@ public class servletUsuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        /*
         response.setContentType("text/html;charset=UTF-8");
         
         PrintWriter out = response.getWriter();
@@ -57,6 +61,7 @@ public class servletUsuarios extends HttpServlet {
         
         out.println("</body>");
         out.println("</html>");
+        */
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -85,8 +90,6 @@ public class servletUsuarios extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String test;
-        test = request.getRequestURL().toString();
         if (request.getRequestURL().toString().endsWith("/register")) {
             processRegister(request, response);
         } else{
@@ -115,27 +118,32 @@ public class servletUsuarios extends HttpServlet {
         out.println("<!DOCTYPE html>");
         out.println("<html>");
         out.println("<head>");
-        out.println("<title>Usuario registrado</title>");            
+        out.println("<title>Video registrado</title>");            
         out.println("</head>");
         out.println("<body>");
         
-        Usuario usuario;
+        Video video;
         
         try {
-            usuario = new Usuario(request.getParameter("usuario"),
-                                    request.getParameter("password"),
-                                    request.getParameter("nombre"),
-                                    request.getParameter("apellidos"),
-                                    request.getParameter("correo"));
+            DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
+            LocalTime duracionLocal = LocalTime.parse(request.getParameter("duracion"), dateTimeFormatter);
             
-            UsuarioDAO.register(usuario);
-            out.println("<h1>El usuario ha sido registrado</h1>");
-            out.println("<p>Usuario: " + request.getParameter("usuario") + "</p>");
+            video = new Video(request.getParameter("titulo"),
+                                request.getParameter("autor"),
+                                new SimpleDateFormat("yyyy-mm-dd").parse(request.getParameter("fechaCreacion")),
+                                new Time(duracionLocal.getHour(), duracionLocal.getMinute(), duracionLocal.getSecond()),
+                                new Integer(request.getParameter("reproducciones")),
+                                request.getParameter("descripcion"),
+                                request.getParameter("formato"));
+            
+            VideoDAO.register(video);
+            out.println("<h1>El video ha sido registrado</h1>");
+            out.println("<p>video: " + request.getParameter("titulo") + "</p>");
             
             DatabaseConnection.disconnect();
         }
         catch(Exception e) {
-            out.println("<h1>El usuario no se ha podido registrar. Error: " + e.getMessage()+ "</h1>");
+            out.println("<h1>El video no se ha podido registrar. Error: " + e.getMessage()+ "</h1>");
         }
         
         out.println("</body>");
