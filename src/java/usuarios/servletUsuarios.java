@@ -4,6 +4,7 @@ import common.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,17 +23,7 @@ public class servletUsuarios extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Login</title>");            
-        out.println("</head>");
-        out.println("<body>");
-        
+        boolean usuarioLogado = false;       
         Usuario usuario;
         
         try {
@@ -42,21 +33,47 @@ public class servletUsuarios extends HttpServlet {
                                     null,
                                     null);
             
-            if(UsuarioDAO.login(usuario)){
-                out.println("<h1>El usuario ha sido logado correctamente</h1>");
-                out.println("<p>Usuario: " + request.getParameter("usuario") + "</p>");
+            usuarioLogado = UsuarioDAO.login(usuario);
+            if(usuarioLogado){
+                //out.println("<h1>El usuario ha sido logado correctamente</h1>");
+                //out.println("<p>Usuario: " + request.getParameter("usuario") + "</p>");  
             } else{
+                response.setContentType("text/html;charset=UTF-8");
+                PrintWriter out = response.getWriter();
+        
+                out.println("<!DOCTYPE html>");
+                out.println("<html>");
+                out.println("<head>");
+                out.println("<title>Login</title>");            
+                out.println("</head>");
+                out.println("<body>");
                 out.println("<h1>El usuario no se ha podido logar</h1>");
+                out.println("</body>");
+                out.println("</html>");
             }
             
             DatabaseConnection.disconnect();
         }
         catch(Exception e) {
-            out.println("<h1>El usuario no se ha podido logar. Error: " + e.getMessage()+ "</h1>");
-        }
+            response.setContentType("text/html;charset=UTF-8");
+            PrintWriter out = response.getWriter();
         
-        out.println("</body>");
-        out.println("</html>");
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Login</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>El usuario no se ha podido logar. Error: " + e.getMessage()+ "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+
+        if(usuarioLogado){
+            //RequestDispatcher dispatcher = request.getRequestDispatcher("listadoVid.jsp");
+            //dispatcher.forward(request, response);
+            response.sendRedirect("../servletRegistroVid/listado");
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

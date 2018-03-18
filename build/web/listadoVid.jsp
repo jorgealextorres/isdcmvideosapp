@@ -54,5 +54,9 @@
             DatabaseConnection.disconnect();
         %>
         </table>  
+        
+        <form action="servletRegistroVid/showForm" method="post">
+            <p><input type="submit" value="Registrar video" /></p>
+        </form>
     </body>
 </html>

@@ -25,6 +25,8 @@ public class servletRegistroVid extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.sendRedirect(String.format("%s%s", request.getContextPath(),"/registroVid.jsp"));
+        
         /*
         response.setContentType("text/html;charset=UTF-8");
         
@@ -76,7 +78,8 @@ public class servletRegistroVid extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        //processRequest(request, response);
+        response.sendRedirect(String.format("%s%s", request.getContextPath(),"/listadoVid.jsp"));
     }
 
     /**
@@ -111,17 +114,6 @@ public class servletRegistroVid extends HttpServlet {
     protected void processRegister(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.setContentType("text/html;charset=UTF-8");
-        
-        PrintWriter out = response.getWriter();
-        
-        out.println("<!DOCTYPE html>");
-        out.println("<html>");
-        out.println("<head>");
-        out.println("<title>Video registrado</title>");            
-        out.println("</head>");
-        out.println("<body>");
-        
         Video video;
         
         try {
@@ -130,23 +122,32 @@ public class servletRegistroVid extends HttpServlet {
             
             video = new Video(request.getParameter("titulo"),
                                 request.getParameter("autor"),
-                                new SimpleDateFormat("yyyy-mm-dd").parse(request.getParameter("fechaCreacion")),
+                                new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fechaCreacion")),
                                 new Time(duracionLocal.getHour(), duracionLocal.getMinute(), duracionLocal.getSecond()),
                                 new Integer(request.getParameter("reproducciones")),
                                 request.getParameter("descripcion"),
                                 request.getParameter("formato"));
             
             VideoDAO.register(video);
-            out.println("<h1>El video ha sido registrado</h1>");
-            out.println("<p>video: " + request.getParameter("titulo") + "</p>");
             
             DatabaseConnection.disconnect();
+            
+            response.sendRedirect("../servletRegistroVid/listado");
         }
         catch(Exception e) {
-            out.println("<h1>El video no se ha podido registrar. Error: " + e.getMessage()+ "</h1>");
-        }
+            response.setContentType("text/html;charset=UTF-8");
         
-        out.println("</body>");
-        out.println("</html>");
+            PrintWriter out = response.getWriter();
+
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Video registrado</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>El video no se ha podido registrar. Error: " + e.getMessage()+ "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
     }
 }
