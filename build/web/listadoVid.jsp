@@ -16,6 +16,27 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%
+            if (request.getSession(false) != null && request.getSession(false).getAttribute("userName") != null) {
+                String userName = request.getSession(false).getAttribute("userName").toString();
+        %>
+                <form action="servletUsuarios/logout" method="post">
+                    <p>Welcome, ${userName}! <input type="submit" value="Log out" /></p>
+                </form>
+        <%       
+            }
+            else 
+            {
+                request.setAttribute("title", "Error");
+                request.setAttribute("redirect", "login.jsp");
+                request.setAttribute("message", "403 Forbidden");
+                response.setStatus(403);
+                request.getRequestDispatcher("/message.jsp").forward(request, response);
+            }
+        %>
+        
+
+        
         <h1>Listado videos</h1>
         <table border=1 cellpadding=5>
           <tr>

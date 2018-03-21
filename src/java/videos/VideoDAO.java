@@ -21,7 +21,12 @@ public class VideoDAO {
     private static void init() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
         connection = DatabaseConnection.getConnection();
     }
-       
+    
+    private static void disconnect() throws SQLException
+    {
+        DatabaseConnection.disconnect();
+    }
+        
     public static void register(Video video) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{ 
         init();
         String sentence = "insert into videos(titulo, autor, fechaCreacion, duracion, reproducciones, descripcion, formato) " +
@@ -36,6 +41,7 @@ public class VideoDAO {
         stmt.setString(7, video.getFormato());
         stmt.executeUpdate();
         stmt.close();
+        disconnect();
     }  
     
     public static List<Video> retrieve(Integer offset, Integer numRecords) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
@@ -61,11 +67,32 @@ public class VideoDAO {
 
         results.close();
         stmt.close();
+        disconnect();
         
         if(videos.isEmpty()){
             videos = null;
         }
         
         return videos;
+    }
+    
+    public static boolean videoExists(String titulo) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        // TODO : falta per aplicar l'offset i el numRecords 
+        String statement = "select titulo from videos where titulo = '" + titulo + "'";
+        boolean exists = false;
+        
+        init();
+        stmt = connection.prepareStatement(statement);
+        ResultSet results = stmt.executeQuery();
+        
+        if(results.next()){
+            exists = true;
+        }
+
+        results.close();
+        stmt.close();
+        disconnect();
+        
+        return exists;
     }
 }

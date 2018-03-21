@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registro de usuarios</title>
     </head>
     <body>
         <h1>Registrar usuarios</h1>
@@ -22,5 +22,7 @@
             <p>Repite contraseña: <input type="text" name="password2" /></p>
             <p><input type="submit" value="Registrar usuario" /></p>
         </form>
+        <br>
+        <p><a href="login.jsp">Volver</a></p>
     </body>
 </html>

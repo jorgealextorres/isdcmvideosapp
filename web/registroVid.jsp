@@ -9,9 +9,27 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registro de videos</title>
     </head>
     <body>
+        <%
+            if (request.getSession(false) != null && request.getSession(false).getAttribute("userName") != null) {
+                String userName = request.getSession(false).getAttribute("userName").toString();
+        %>
+                <form action="servletUsuarios/logout" method="post">
+                    <p>Welcome, ${userName}! <input type="submit" value="Log out" /></p>
+                </form>
+        <%       
+            }
+            else 
+            {
+                request.setAttribute("title", "Error");
+                request.setAttribute("redirect", "login.jsp");
+                request.setAttribute("message", "403 Forbidden");
+                response.setStatus(403);
+                request.getRequestDispatcher("/message.jsp").forward(request, response);
+            }
+        %>
         <h1>Registrar videos</h1>
         <form action="servletRegistroVid/register" method="post">
             <p>Título: <input type="text" name="titulo" /></p>
