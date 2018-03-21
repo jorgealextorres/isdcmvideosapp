@@ -27,32 +27,28 @@
             });
             
             function checkFields() {
-                var newLine = '\n';
                 var errorMessage = '';
                 var user=$('#usuario').val();
                 var password=$('#password').val();
 
                 if(user.length < 1){
-                    errorMessage += 'El campo usuario está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El campo usuario está vacío.<br>';
                 }
                 if(password.length < 1){
-                    errorMessage += 'El campo contraseña está vacío.';
+                    errorMessage += 'El campo contraseña está vacío.<br>';
                 }
                 
                 if(errorMessage.length < 1){
                     document.getElementById("formLogin").submit();
                 } else{
-                    $('#errorText').val(errorMessage);
+                    $('#errorText').html(errorMessage);
                     $("#errores").show();
                 }
             }
         </script> 
     </head>
     <body>
-<div class="container">
+<div class="container" style="margin-top:10%">
 	<div class="row">
         <div class="col-md-4 col-md-offset-4">
             <div class="panel panel-default">
@@ -79,7 +75,7 @@
     </div>
 </div>
         <div id="errores">
-            <input id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;'>
+            <p id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;text-align: center'>
         </div>
 
 </html>

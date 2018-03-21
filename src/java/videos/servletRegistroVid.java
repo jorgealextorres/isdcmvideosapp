@@ -97,7 +97,6 @@ public class servletRegistroVid extends HttpServlet {
             String titulo = request.getParameter("titulo");
             String reproducciones = request.getParameter("reproducciones");
             
-            
             if (isNullEmptyOrWhiteSpace(titulo)) throw new Exception("Titulo no definido");
             if (isNullEmptyOrWhiteSpace(request.getParameter("fechaCreacion"))) throw new Exception("Fecha no definida");
 

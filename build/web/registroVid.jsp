@@ -8,8 +8,61 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro de videos</title>
+        <script>
+            $(document).ready(function() {
+                $("#errores").hide();
+            });
+            
+            function checkFields() {
+                var errorMessage = '';
+                var titulo=$('#titulo').val();
+                var autor=$('#autor').val();
+                var fechaCreacion=$('#fechaCreacion').val();
+                var duracion=$('#duracion').val();
+                var reproducciones=$('#reproducciones').val();
+                var descripcion=$('#descripcion').val();
+                var formato=$('#formato').val();
+                var re = new RegExp("[0-9]$");
+
+                if(titulo.length < 1){
+                    errorMessage += 'El campo titulo está vacío.<br>';
+                }
+                if(autor.length < 1){
+                    errorMessage += 'El campo autor está vacío.<br>';
+                }
+                if(fechaCreacion.length < 1){
+                    errorMessage += 'El fecha de creación está vacío.<br>';
+                }
+                if(duracion.length < 1){
+                    errorMessage += 'El duración está vacío.<br>';
+                }
+                if(reproducciones.length < 1){
+                    errorMessage += 'El reproducciones está vacío.<br>';
+                }
+                if(descripcion.length < 1){
+                    errorMessage += 'El descripción está vacío.<br>';
+                }
+                if(formato.length < 1){
+                    errorMessage += 'El formato está vacío.<br>';
+                }             
+                if (!re.test(reproducciones)) {
+                    errorMessage += 'El campo reproducciones no tiene el formato correcto.<br>';
+                }
+                
+                if(errorMessage.length < 1){
+                    document.getElementById("formRegistraVideo").submit();
+                } else{
+                    $('#errorText').html(errorMessage);
+                    $("#errores").show();
+                }
+            }
+        </script> 
+
     </head>
     <body>
         <%
@@ -17,7 +70,12 @@
                 String userName = request.getSession(false).getAttribute("userName").toString();
         %>
                 <form action="servletUsuarios/logout" method="post">
-                    <p>Welcome, ${userName}! <input type="submit" value="Log out" /></p>
+                    <div>
+                        <p align="right">
+                            Welcome, ${userName} ! 
+                            <button type="submit" class="btn btn-success">Log out</button>
+                        </p>
+                    </div>
                 </form>
         <%       
             }
@@ -30,16 +88,53 @@
                 request.getRequestDispatcher("/message.jsp").forward(request, response);
             }
         %>
-        <h1>Registrar videos</h1>
-        <form action="servletRegistroVid/register" method="post">
-            <p>Título: <input type="text" name="titulo" /></p>
-            <p>Autor: <input type="text" name="autor" /></p>
-            <p>Fecha de creación: <input type="date" name="fechaCreacion" /></p>
-            <p>Duración: <input type="time" name="duracion" /></p>
-            <p>Reproducciones: <input type="text" name="reproducciones" /></p>
-            <p>Descripción: <input type="text" name="descripcion" /></p>
-            <p>Formato: <input type="text" name="formato" /></p>
-            <p><input type="submit" value="Registrar video" /></p>
-        </form>
+        
+        <div class="container content">
+	<div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Registro de video</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" action="servletRegistroVid/register" method="post" id="formRegistraVideo">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Título" id="titulo" name="titulo" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Autor" id="autor" name="autor" type="text" value="">
+                            </div>
+       
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Fecha de creación" id="fechaCreacion" name="fechaCreacion" type="date" value="">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Duración" id="duracion" name="duracion" type="time" value="">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Reproducciones" id="reproducciones" name="reproducciones" type="text" value="" pattern="[0-9]" title="Only numbers">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" type="text" value="">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Formato" id="formato" name="formato" type="text" value="">
+                            </div>
+                            <!-- Change this to a button or input when using this as a form -->
+                            <button type="button" class="btn btn-success btn-block" onclick="checkFields()">Registrar video</button>
+                            
+                            <p><a href="listadoVid.jsp">Cancelar</a></p>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+        
+        <div id="errores">
+            <p id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;text-align: center;'>
+        </div>
     </body>
 </html>

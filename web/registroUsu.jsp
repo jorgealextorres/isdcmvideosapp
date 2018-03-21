@@ -19,7 +19,6 @@
             });
             
             function checkFields() {
-                var newLine = '\n';
                 var errorMessage = '';
                 var user=$('#usuario').val();
                 var password=$('#password').val();
@@ -28,37 +27,25 @@
                 var re = new RegExp("[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$");
 
                 if(user.length < 1){
-                    errorMessage += 'El campo usuario está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El campo usuario está vacío.<br>';
                 }
                 if(password.length < 1){
-                    errorMessage += 'El campo contraseña está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El campo contraseña está vacío.<br>';
                 }
                 if(correo.length < 1){
-                    errorMessage += 'El correo electrónico está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El correo electrónico está vacío.<br>';
                 }
                 if(password != password2){
-                    errorMessage += 'El password y su confirmación no son iguales.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
-                }               
+                    errorMessage += 'El password y su confirmación no son iguales.<br>';
+                }            
                 if (!re.test(correo)) {
-                    errorMessage += 'El correo electrónico no tiene el formato correcto.';
+                    errorMessage += 'El correo electrónico no tiene el formato correcto.<br>';
                 }
                 
                 if(errorMessage.length < 1){
                     document.getElementById("formRegistroUsuario").submit();
                 } else{
-                    $('#errorText').val(errorMessage);
+                    $('#errorText').html(errorMessage);
                     $("#errores").show();
                 }
             }
@@ -108,7 +95,7 @@
 </div>
         
         <div id="errores">
-            <input id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;'>
+            <p id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;text-align: center'>
         </div>
     </body>
 </html>

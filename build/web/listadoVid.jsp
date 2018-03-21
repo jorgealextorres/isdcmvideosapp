@@ -12,6 +12,33 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <style>
+        #videos {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #videos td, #videos th {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        #videos tr:nth-child(even){background-color: #f2f2f2;}
+
+        #videos tr:hover {background-color: #ddd;}
+
+        #videos th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+        }
+        </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
@@ -21,7 +48,12 @@
                 String userName = request.getSession(false).getAttribute("userName").toString();
         %>
                 <form action="servletUsuarios/logout" method="post">
-                    <p>Welcome, ${userName}! <input type="submit" value="Log out" /></p>
+                    <div>
+                        <p align="right">
+                            Welcome, ${userName} ! 
+                            <button type="submit" class="btn btn-success">Log out</button>
+                        </p>
+                    </div>
                 </form>
         <%       
             }
@@ -36,9 +68,9 @@
         %>
         
 
-        
+        <div class="content">
         <h1>Listado videos</h1>
-        <table border=1 cellpadding=5>
+        <table id="videos">
           <tr>
             <th>Título</th>
             <th>Autor</th>
@@ -53,23 +85,23 @@
                 List<Video> videos = VideoDAO.retrieve(0, 0);
                 
                 if(videos == null || videos.isEmpty()){%>
-                    <tr><th>No hay registros</th></tr>
+                    <tr><td>No hay registros</td></tr>
                     <%
                 } else{
                     for(Video element:videos){%>
                         <tr>
-                        <th><%=element.getTitulo()%></th>
-                        <th><%=element.getAutor()%></th>
-                        <th><%=element.getFechaCreacion()%></th>
-                        <th><%=element.getDuracion()%></th>
-                        <th><%=element.getReproducciones()%></th>
-                        <th><%=element.getFormato()%></th>
+                        <td><%=element.getTitulo()%></td>
+                        <td><%=element.getAutor()%></td>
+                        <td><%=element.getFechaCreacion()%></td>
+                        <td><%=element.getDuracion()%></td>
+                        <td><%=element.getReproducciones()%></td>
+                        <td><%=element.getFormato()%></td>
                         </tr>
                         <%
                     }
                 }
             } catch(Exception e){%>
-                <tr><th>Error: <%=e.getMessage()%></th></tr>
+                <tr><td>Error: <%=e.getMessage()%></td></tr>
                 <%
             }
             DatabaseConnection.disconnect();
@@ -77,7 +109,9 @@
         </table>  
         
         <form action="servletRegistroVid/showForm" method="post">
-            <p><input type="submit" value="Registrar video" /></p>
+            <!--<p><input type="submit" value="Registrar video" /></p>-->
+            <button type="submit" class="btn btn-success">Registrar video</button>
         </form>
+        </div>
     </body>
 </html>

@@ -19,7 +19,6 @@
             });
             
             function checkFields() {
-                var newLine = '\n';
                 var errorMessage = '';
                 var titulo=$('#titulo').val();
                 var autor=$('#autor').val();
@@ -31,55 +30,34 @@
                 var re = new RegExp("[0-9]$");
 
                 if(titulo.length < 1){
-                    errorMessage += 'El campo titulo está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El campo titulo está vacío.<br>';
                 }
                 if(autor.length < 1){
-                    errorMessage += 'El campo autor está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El campo autor está vacío.<br>';
                 }
                 if(fechaCreacion.length < 1){
-                    errorMessage += 'El fecha de creación está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El fecha de creación está vacío.<br>';
                 }
                 if(duracion.length < 1){
-                    errorMessage += 'El duración está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El duración está vacío.<br>';
                 }
                 if(reproducciones.length < 1){
-                    errorMessage += 'El reproducciones está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El reproducciones está vacío.<br>';
                 }
                 if(descripcion.length < 1){
-                    errorMessage += 'El descripción está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
+                    errorMessage += 'El descripción está vacío.<br>';
                 }
                 if(formato.length < 1){
-                    errorMessage += 'El formato está vacío.';
-                }
-                if(errorMessage.length > 0){
-                    errorMessage += newLine;  //TODO: Does not work
-                }               
+                    errorMessage += 'El formato está vacío.<br>';
+                }             
                 if (!re.test(reproducciones)) {
-                    errorMessage += 'El campo reproducciones no tiene el formato correcto.';
+                    errorMessage += 'El campo reproducciones no tiene el formato correcto.<br>';
                 }
                 
                 if(errorMessage.length < 1){
                     document.getElementById("formRegistraVideo").submit();
                 } else{
-                    $('#errorText').val(errorMessage);
+                    $('#errorText').html(errorMessage);
                     $("#errores").show();
                 }
             }
@@ -156,7 +134,7 @@
 </div>
         
         <div id="errores">
-            <input id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;'>
+            <p id="errorText" type="text" value="menudo error" style='color:red;display:block;width:100%;border:0px;text-align: center;'>
         </div>
     </body>
 </html>
