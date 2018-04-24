@@ -20,21 +20,14 @@ public class DatabaseConnection {
     private static JdbcDataSource ds = null;
             
     private static final String dbDriver = "org.h2.Driver";
-    private static final String dbURL = "jdbc:h2:./videosDb";
+    private static final String dbURL = "jdbc:h2:~/videosDb";
     private static final String dbUser = "userdb";
     private static final String dbUserPassword = "123456";
     // jdbc Connection
     private static Connection conn = null;
     
     private static void createConnection() throws ClassNotFoundException, InstantiationException, SQLException, IllegalAccessException
-    {
-        /*
-        //Class.forName("org.apache.derby.jdbc.ClientDriver").newInstance();
-        Class.forName("com.mysql.jdbc.Driver").newInstance(); 
-        //Get a connection
-        conn = DriverManager.getConnection(dbURL, dbUser, dbUserPassword); 
-        */
-                
+    {                
         Class.forName(dbDriver);
         conn = DriverManager.getConnection(dbURL, dbUser,dbUserPassword);
         
