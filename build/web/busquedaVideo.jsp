@@ -79,7 +79,7 @@
             <form role="form" action="/isdcmvideosapp/busquedaVideoServlet/busqueda" method="get">
                 <div class="form-row" style="width:100%">       
                     <div class="form-group col-md-6">
-                        <input class="form-control" name="searchText" type="text" >
+                        <input class="form-control" placeholder="Texto a buscar" name="searchText" type="text" >
                     </div>
                     <div class="form-group col-md-2">
                         <select class="form-control" style="display:inline-block" name="tipoBusqueda">
