@@ -40,6 +40,7 @@ public class busquedaVideoServlet extends HttpServlet {
         String parametrosBusqueda = "";
         String searchText = request.getParameter("searchText");
         
+        
         if(!searchText.isEmpty()){
             SoapService_Service service = new SoapService_Service();   
             
@@ -55,8 +56,16 @@ public class busquedaVideoServlet extends HttpServlet {
                     parametrosBusqueda = parametrosBusqueda + " 'autor' ";
                     break;
                 case "year": 
-                    videos = service.getSoapServicePort().searchByYear(Integer.valueOf(searchText));
-                    parametrosBusqueda = parametrosBusqueda + " 'año de creación' ";
+                    Integer year = 0;
+                    try {
+                        year = Integer.parseInt(searchText);
+                        videos = service.getSoapServicePort().searchByYear(year);
+                        parametrosBusqueda = parametrosBusqueda + " 'año de creación' ";
+                    }
+                    catch(Exception ex) {
+                        parametrosBusqueda = "El formato del año no es válido. Búsqueda realizada para el tipo de busqueda 'año de creacion' ";
+                    }
+
                     break;
             }
             
