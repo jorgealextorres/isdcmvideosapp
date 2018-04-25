@@ -4,6 +4,8 @@
     Author     : 1233243
 --%>
 
+<%@page import="java.sql.Timestamp"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="common.DatabaseConnection"%>
 <%@page import="videos.Video"%>
 <%@page import="java.util.List"%>
@@ -88,12 +90,15 @@
                     <tr><td>No hay registros</td></tr>
                     <%
                 } else{
-                    for(Video element:videos){%>
+                    for(Video element:videos){
+                        SimpleDateFormat creationFormat = new SimpleDateFormat("MM/dd/yyyy");
+                        SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm:ss");
+                    %>
                         <tr>
                         <td><%=element.getTitulo()%></td>
                         <td><%=element.getAutor()%></td>
-                        <td><%=element.getFechaCreacion()%></td>
-                        <td><%=element.getDuracion()%></td>
+                        <td><%=creationFormat.format((element.getFechaCreacion()).getTime())%></td>
+                        <td><%=durationFormat.format(new Timestamp(element.getDuracion()))%></td>
                         <td><%=element.getReproducciones()%></td>
                         <td><%=element.getFormato()%></td>
                         </tr>
@@ -107,11 +112,14 @@
             DatabaseConnection.disconnect();
         %>
         </table>  
-        
-        <form action="servletRegistroVid/showForm" method="post">
-            <!--<p><input type="submit" value="Registrar video" /></p>-->
-            <button type="submit" class="btn btn-success">Registrar video</button>
-        </form>
+        <div>
+            <form action="servletRegistroVid/showForm" method="post">
+                <button type="submit" class="btn btn-success">Registrar video</button>
+            </form>
+            <form action="busquedaVideoServlet/showForm" method="post">
+                <button type="submit" class="btn btn-success">Buscar video</button>
+            </form>
+        </div>
         </div>
     </body>
 </html>

@@ -3,10 +3,13 @@ package videos;
 import common.DatabaseConnection;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -90,7 +93,6 @@ public class servletRegistroVid extends HttpServlet {
 
     protected void processRegister(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Video video;
         
         try {
@@ -106,12 +108,13 @@ public class servletRegistroVid extends HttpServlet {
             
             try
             {
-                DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ISO_LOCAL_TIME;
-                LocalTime duracionLocal = LocalTime.parse(request.getParameter("duracion"), dateTimeFormatter);
+                SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm");
+                Date date = durationFormat.parse(request.getParameter("duracion"));
+                Timestamp tstamp = new Timestamp(date.getTime());
                 video = new Video(titulo,
                                     request.getParameter("autor"),
                                     new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fechaCreacion")),
-                                    new Time(duracionLocal.getHour(), duracionLocal.getMinute(), duracionLocal.getSecond()),
+                                    tstamp.getTime(),
                                     new Integer(request.getParameter("reproducciones")),
                                     request.getParameter("descripcion"),
                                     request.getParameter("formato"));
@@ -137,6 +140,7 @@ public class servletRegistroVid extends HttpServlet {
             request.setAttribute("redirect", "../servletRegistroVid/listado");
             request.getRequestDispatcher("/message.jsp").forward(request, response);
         }
+
     }
     
     private boolean isNullEmptyOrWhiteSpace(String str)

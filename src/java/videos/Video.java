@@ -1,18 +1,17 @@
 package videos;
 
-import java.sql.Time;
 import java.util.Date;
 
 public class Video {
     private String titulo;
     private String autor;
     private Date fechaCreacion;
-    private Time duracion;
+    private Long duracion;
     private Integer reproducciones;
     private String descripcion;
     private String formato;
 
-    public Video(String titulo, String autor, Date fechaCreacion, Time duracion, Integer reproducciones, String descripcion, String formato) {
+    public Video(String titulo, String autor, Date fechaCreacion, Long duracion, Integer reproducciones, String descripcion, String formato) {
         this.titulo = titulo;
         this.autor = autor;
         this.fechaCreacion = fechaCreacion;
@@ -46,11 +45,11 @@ public class Video {
         this.fechaCreacion = fechaCreacion;
     }
 
-    public Time getDuracion() {
+    public Long getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(Time duracion) {
+    public void setDuracion(Long duracion) {
         this.duracion = duracion;
     }
 
