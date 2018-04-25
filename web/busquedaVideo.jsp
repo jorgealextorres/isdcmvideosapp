@@ -4,8 +4,6 @@
     Author     : jorgetorres
 --%>
 
-
-
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.time.Duration"%>
@@ -71,23 +69,35 @@
                 request.getRequestDispatcher("/message.jsp").forward(request, response);
             }
         %>
+
         
-        <div>
-            <form role="form" action="busquedaVideoServlet/busqueda" method="get">
-                <input name="searchText" type="text" >
-                        
-                <select name="tipoBusqueda">
-                   <option value="title">Por titulo</option>
-                   <option value="autor">Por autor</option>
-                   <option value="year">Por año de creación</option>
-                 </select> 
-         
-                <button type="submit">Buscar</button>
-                            
+
+        <div class="content">
+        <h1> Listado videos</h1>
+        <br>
+        <div style="dispay:block;width:100%">
+            <form role="form" action="/isdcmvideosapp/busquedaVideoServlet/busqueda" method="get">
+                <div class="form-row" style="width:100%">       
+                    <div class="form-group col-md-6">
+                        <input class="form-control" name="searchText" type="text" >
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="form-control" style="display:inline-block" name="tipoBusqueda">
+                            <option value="title">Por titulo</option>
+                            <option value="autor">Por autor</option>
+                            <option value="year">Por año de creación</option>
+                        </select> 
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-success" style="display:inline-block" type="submit">Buscar</button>
+                    </div>    
+                </div>
             </form>
         </div>
-
-        <%
+        <br>
+        <br>
+        <p>
+                    <%
             try{ 
                 String parametrosBusquedaText = (String)request.getAttribute("parametrosBusqueda");
                 if(parametrosBusquedaText != null && !parametrosBusquedaText.isEmpty()){
@@ -102,9 +112,7 @@
                 <%
             }
         %>
-
-        <div class="content">
-        <h1>Listado videos</h1>
+        </p>
         <table id="videos">
           <tr>
             <th>Título</th>
@@ -144,11 +152,13 @@
             }
         %>
         </table>  
-        
-        <form action="servletRegistroVid/showForm" method="post">
-            <button type="submit" class="btn btn-success">Registrar video</button>
-        </form>
+        <br>
+
+        <div>
+            <a href="/isdcmvideosapp/registroVid.jsp" class="btn btn-success" role="button">Registrar video</a>
+            <a href="/isdcmvideosapp/listadoVid.jsp" class="btn btn-success" role="button">Ver todos los videos</a>
         </div>
+        
     </body>
 </html>
 

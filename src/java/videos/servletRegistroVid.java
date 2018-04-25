@@ -130,7 +130,7 @@ public class servletRegistroVid extends HttpServlet {
             response.setStatus(200);
         }
         catch(Exception e) {
-            request.setAttribute("message", "El video no se ha podido registrar. Error: " + e.getMessage() + ".");
+            request.setAttribute("message", "El video no se ha podido registrar. Puede que los datos no tengan el formato correcto o haya problemas de conectividad.");
             response.setStatus(400);
         }
         finally

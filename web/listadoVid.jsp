@@ -71,7 +71,30 @@
         
 
         <div class="content">
-        <h1>Listado videos</h1>
+        <h1> Listado videos</h1>
+        <br>
+        <div style="dispay:block;width:100%">
+            <form role="form" action="/isdcmvideosapp/busquedaVideoServlet/busqueda" method="get">
+                <div class="form-row" style="width:100%">       
+                    <div class="form-group col-md-6">
+                        <input class="form-control" name="searchText" type="text" >
+                    </div>
+                    <div class="form-group col-md-2">
+                        <select class="form-control" style="display:inline-block" name="tipoBusqueda">
+                            <option value="title">Por titulo</option>
+                            <option value="autor">Por autor</option>
+                            <option value="year">Por año de creación</option>
+                        </select> 
+                    </div>
+                    <div class="form-group col-md-2">
+                        <button class="btn btn-success" style="display:inline-block" type="submit">Buscar</button>
+                    </div>    
+                </div>
+            </form>
+        </div>
+        <br>
+        
+        
         <table id="videos">
           <tr>
             <th>Título</th>
@@ -112,14 +135,10 @@
             DatabaseConnection.disconnect();
         %>
         </table>  
+        <br>
         <div>
-            <form action="servletRegistroVid/showForm" method="post">
-                <button type="submit" class="btn btn-success">Registrar video</button>
-            </form>
-            <form action="busquedaVideoServlet/showForm" method="post">
-                <button type="submit" class="btn btn-success">Buscar video</button>
-            </form>
-        </div>
+            <a href="/isdcmvideosapp/registroVid.jsp" class="btn btn-success" role="button">Registrar video</a>
+            <a href="/isdcmvideosapp/listadoVid.jsp" class="btn btn-success" role="button">Ver todos los videos</a>
         </div>
     </body>
 </html>

@@ -78,10 +78,10 @@
                                 <input class="form-control" placeholder="Usuario" name="usuario" id="usuario" type="text" value="">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Contraseña" name="password" id="password" type="text" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                                <input class="form-control" placeholder="Contraseña" name="password" id="password" type="password" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                             </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Repite contraseña" name="password2" id="password2" type="text" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
+                                <input class="form-control" placeholder="Repite contraseña" name="password2" id="password2" type="password" value="" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <button type="button" class="btn btn-success btn-block" onclick="checkFields()">Registrar usuario</button>

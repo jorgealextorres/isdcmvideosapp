@@ -192,7 +192,7 @@ public class servletUsuarios extends HttpServlet {
             response.setStatus(200);       
         }
         catch(Exception e) {
-            request.setAttribute("message", "El usuario no se ha podido registrar. Error: " + e.getMessage() + ".");
+            request.setAttribute("message", "El usuario no se ha podido registrar. Puede que el nombre de usuario o correo ya existan en la base de datos o haya algun problema de conectividad.");
             request.setAttribute("redirect", "../registroUsu.jsp");
             response.setStatus(400);
         }
