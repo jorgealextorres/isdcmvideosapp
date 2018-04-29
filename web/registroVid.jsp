@@ -26,6 +26,7 @@
                 var duracion=$('#duracion').val();
                 var reproducciones=$('#reproducciones').val();
                 var descripcion=$('#descripcion').val();
+                var dir=$('#url').val();
                 var formato=$('#formato').val();
                 var re = new RegExp("[0-9]$");
 
@@ -47,9 +48,9 @@
                 if(descripcion.length < 1){
                     errorMessage += 'El descripción está vacío.<br>';
                 }
-                if(formato.length < 1){
-                    errorMessage += 'El formato está vacío.<br>';
-                }             
+                if(dir.length < 1){
+                    errorMessage += 'La url está vacía.<br>';
+                }          
                 if (!re.test(reproducciones)) {
                     errorMessage += 'El campo reproducciones no tiene el formato correcto.<br>';
                 }
@@ -105,7 +106,6 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="Autor" id="autor" name="autor" type="text" value="">
                             </div>
-       
                             <div class="form-group">
                                 <input class="form-control" placeholder="Fecha de creación" id="fechaCreacion" name="fechaCreacion" type="date" value="">
                             </div>
@@ -118,8 +118,15 @@
                             <div class="form-group">
                                 <input class="form-control" placeholder="Descripción" id="descripcion" name="descripcion" type="text" value="">
                             </div>
+                            <div class="form-group" id="formato">
+                                Formato: 
+                                <select name="formato">
+                                    <option value="mp4">MP4</option>
+                                    <option value="ogg">OGG</option>
+                                </select> 
+                            </div>
                             <div class="form-group">
-                                <input class="form-control" placeholder="Formato" id="formato" name="formato" type="text" value="">
+                                <input class="form-control" placeholder="Url" id="url" name="url" type="text" value="">
                             </div>
                             <!-- Change this to a button or input when using this as a form -->
                             <button type="button" class="btn btn-success btn-block" onclick="checkFields()">Registrar video</button>

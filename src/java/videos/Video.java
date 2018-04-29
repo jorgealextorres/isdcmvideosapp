@@ -10,7 +10,21 @@ public class Video {
     private Integer reproducciones;
     private String descripcion;
     private String formato;
+    private String url;
+    private int id;
 
+    public Video(String titulo, String autor, Date fechaCreacion, Long duracion, Integer reproducciones, String descripcion, String formato, String url) {
+        this.id = id;
+        this.titulo = titulo;
+        this.autor = autor;
+        this.fechaCreacion = fechaCreacion;
+        this.duracion = duracion;
+        this.reproducciones = reproducciones;
+        this.descripcion = descripcion;
+        this.formato = formato;
+        this.url = url;
+    }
+    
     public Video(String titulo, String autor, Date fechaCreacion, Long duracion, Integer reproducciones, String descripcion, String formato) {
         this.titulo = titulo;
         this.autor = autor;
@@ -75,5 +89,13 @@ public class Video {
 
     public void setFormato(String formato) {
         this.formato = formato;
+    }
+    
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 }

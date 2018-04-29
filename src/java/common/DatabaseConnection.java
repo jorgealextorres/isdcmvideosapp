@@ -65,6 +65,7 @@ public class DatabaseConnection {
         stmt.execute("alter table if exists Usuario ADD CONSTRAINT IF NOT EXISTS usuario_UNIQUE UNIQUE(usuario)");
         stmt.execute("alter table if exists Usuario ADD CONSTRAINT IF NOT EXISTS correo_UNIQUE UNIQUE(correo)");
         
+        
         stmt.execute("CREATE TABLE IF NOT EXISTS videos (\n" +
                         "  id bigint auto_increment primary key,\n" +
                         "  titulo varchar(100) NOT NULL,\n" +
@@ -73,9 +74,9 @@ public class DatabaseConnection {
                         "  duracion time NOT NULL,\n" +
                         "  reproducciones int(11) NOT NULL,\n" +
                         "  descripcion varchar(255) NOT NULL,\n" +
-                        "  formato varchar(5) NOT NULL\n" +
-                        ")");
-        
+                        "  formato varchar(5) NOT NULL,\n" +
+                        "  url varchar(2083) NOT NULL\n" +
+                        ");");
         //stmt.execute("alter table if exists videos ADD CONSTRAINT IF NOT EXISTS titulo_UNIQUE UNIQUE(titulo)");
         
         stmt.close();

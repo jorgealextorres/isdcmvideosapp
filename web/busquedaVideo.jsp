@@ -121,6 +121,7 @@
             <th>Duración</th>
             <th>Reproducciones</th>
             <th>Formato</th>
+            <th>Acciones</th>
           </tr>
           
         <%
@@ -142,6 +143,7 @@
                         <td><%=durationFormat.format(new Timestamp(element.getDuracion()))%></td>
                         <td><%=element.getReproducciones()%></td>
                         <td><%=element.getFormato()%></td>
+                        <td><a href="/isdcmvideosapp/reproduccion.jsp?titulo=<%=element.getTitulo()%>" class="btn btn-success" role="button">Reproducir</a></td>
                         </tr>
                         <%
                     }

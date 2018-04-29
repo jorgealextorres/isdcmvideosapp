@@ -117,7 +117,8 @@ public class servletRegistroVid extends HttpServlet {
                                     tstamp.getTime(),
                                     new Integer(request.getParameter("reproducciones")),
                                     request.getParameter("descripcion"),
-                                    request.getParameter("formato"));
+                                    request.getParameter("formato"),
+                                    request.getParameter("url"));
             }
             catch (Exception e) {
                 throw new Exception("Algunos datos del video no tienen el formato adecuado");
