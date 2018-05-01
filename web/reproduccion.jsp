@@ -5,6 +5,9 @@
 --%>
 
 
+<%@page import="java.net.HttpURLConnection"%>
+<%@page import="java.net.URL"%>
+<%@page import="org.h2.util.StringUtils"%>
 <%@page import="java.sql.Timestamp"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,12 +27,12 @@
         
         <%
 
-                String titulo = request.getParameter("titulo");
+                Integer id = Integer.valueOf(request.getParameter("id"));
                 Video video = null;
                 String url = "";
                 try 
                 {               
-                    video = VideoDAO.retrieveVideoWithUrl(titulo);
+                    video = VideoDAO.retrieveVideoWithUrl(id);
                     url = video.getUrl();
                 }
                 catch(Exception e) {
@@ -99,7 +102,8 @@
         <h1> Reproducir video</h1>
         <br>    
         <%
-            if(request.getParameter("titulo") == null || video == null || video.getUrl().isEmpty())
+            if(StringUtils.isNullOrEmpty(request.getParameter("id")) || video == null || 
+                    StringUtils.isNullOrEmpty(video.getUrl()))
             {
                 %>
                 <h2>Video no encontrado</h2>
@@ -107,6 +111,15 @@
             }
             else
             {
+                URL urlRestService = new URL("http://localhost:8080/isdcmrestservice/webresources/generic/incrementarReproducciones/" + id.toString());
+		HttpURLConnection conn = (HttpURLConnection) urlRestService.openConnection();
+		conn.setRequestMethod("POST");
+
+		if (conn.getResponseCode() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : "
+					+ conn.getResponseCode());
+		}
+
                 SimpleDateFormat creationFormat = new SimpleDateFormat("MM/dd/yyyy");
                 SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm:ss");
                 %>

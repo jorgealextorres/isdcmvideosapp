@@ -23,8 +23,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="duracion" type="{http://www.w3.org/2001/XMLSchema}long" minOccurs="0"/&gt;
  *         &lt;element name="fechaCreacion" type="{http://www.w3.org/2001/XMLSchema}dateTime" minOccurs="0"/&gt;
  *         &lt;element name="formato" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="id" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *         &lt;element name="reproducciones" type="{http://www.w3.org/2001/XMLSchema}int" minOccurs="0"/&gt;
  *         &lt;element name="titulo" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
+ *         &lt;element name="url" type="{http://www.w3.org/2001/XMLSchema}string" minOccurs="0"/&gt;
  *       &lt;/sequence&gt;
  *     &lt;/restriction&gt;
  *   &lt;/complexContent&gt;
@@ -40,8 +42,10 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "duracion",
     "fechaCreacion",
     "formato",
+    "id",
     "reproducciones",
-    "titulo"
+    "titulo",
+    "url"
 })
 public class Video {
 
@@ -51,8 +55,10 @@ public class Video {
     @XmlSchemaType(name = "dateTime")
     protected XMLGregorianCalendar fechaCreacion;
     protected String formato;
+    protected Integer id;
     protected Integer reproducciones;
     protected String titulo;
+    protected String url;
 
     /**
      * Gets the value of the autor property.
@@ -175,6 +181,30 @@ public class Video {
     }
 
     /**
+     * Gets the value of the id property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Integer }
+     *     
+     */
+    public Integer getId() {
+        return id;
+    }
+
+    /**
+     * Sets the value of the id property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Integer }
+     *     
+     */
+    public void setId(Integer value) {
+        this.id = value;
+    }
+
+    /**
      * Gets the value of the reproducciones property.
      * 
      * @return
@@ -220,6 +250,30 @@ public class Video {
      */
     public void setTitulo(String value) {
         this.titulo = value;
+    }
+
+    /**
+     * Gets the value of the url property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getUrl() {
+        return url;
+    }
+
+    /**
+     * Sets the value of the url property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setUrl(String value) {
+        this.url = value;
     }
 
 }

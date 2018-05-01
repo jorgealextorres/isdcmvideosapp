@@ -31,8 +31,10 @@
 <xs:element name="duracion" type="xs:long" minOccurs="0"/>
 <xs:element name="fechaCreacion" type="xs:dateTime" minOccurs="0"/>
 <xs:element name="formato" type="xs:string" minOccurs="0"/>
+<xs:element name="id" type="xs:int" minOccurs="0"/>
 <xs:element name="reproducciones" type="xs:int" minOccurs="0"/>
 <xs:element name="titulo" type="xs:string" minOccurs="0"/>
+<xs:element name="url" type="xs:string" minOccurs="0"/>
 </xs:sequence>
 </xs:complexType>
 

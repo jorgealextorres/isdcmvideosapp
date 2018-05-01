@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.h2.util.StringUtils;
 
 public class servletRegistroVid extends HttpServlet {
 
@@ -99,10 +100,10 @@ public class servletRegistroVid extends HttpServlet {
             String titulo = request.getParameter("titulo");
             String reproducciones = request.getParameter("reproducciones");
             
-            if (isNullEmptyOrWhiteSpace(titulo)) throw new Exception("Titulo no definido");
-            if (isNullEmptyOrWhiteSpace(request.getParameter("fechaCreacion"))) throw new Exception("Fecha no definida");
+            if (StringUtils.isNullOrEmpty(titulo)) throw new Exception("Titulo no definido");
+            if (StringUtils.isNullOrEmpty(request.getParameter("fechaCreacion"))) throw new Exception("Fecha no definida");
 
-            if (isNullEmptyOrWhiteSpace(reproducciones)) reproducciones = "0";
+            if (StringUtils.isNullOrEmpty(reproducciones)) reproducciones = "0";
             
             if (VideoDAO.videoExists(titulo)) throw new Exception("El video ya existe");
             
@@ -111,7 +112,8 @@ public class servletRegistroVid extends HttpServlet {
                 SimpleDateFormat durationFormat = new SimpleDateFormat("HH:mm");
                 Date date = durationFormat.parse(request.getParameter("duracion"));
                 Timestamp tstamp = new Timestamp(date.getTime());
-                video = new Video(titulo,
+                video = new Video(null,
+                                    titulo,
                                     request.getParameter("autor"),
                                     new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("fechaCreacion")),
                                     tstamp.getTime(),
@@ -142,11 +144,6 @@ public class servletRegistroVid extends HttpServlet {
             request.getRequestDispatcher("/message.jsp").forward(request, response);
         }
 
-    }
-    
-    private boolean isNullEmptyOrWhiteSpace(String str)
-    {
-        return (str == null || str.trim().isEmpty());
     }
 }
 
